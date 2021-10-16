@@ -1,10 +1,10 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ƒeƒXƒgÀs
+/// ãƒ†ã‚¹ãƒˆå®Ÿè¡Œ
 /// </summary>
 public class TestRun : MonoBehaviour
 {

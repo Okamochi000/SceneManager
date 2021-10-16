@@ -1,4 +1,4 @@
-using UnityEditor;
+ï»¿using UnityEditor;
 
 [CustomEditor(typeof(SceneManager))]
 public class SceneManagerEditor : CommonEditor
@@ -6,7 +6,7 @@ public class SceneManagerEditor : CommonEditor
     private bool isOpen_ = false;
 
     /// <summary>
-    /// Œp³æ‚ÌXVˆ—
+    /// ç¶™æ‰¿å…ˆã®æ›´æ–°å‡¦ç†
     /// </summary>
     protected override void OnInspectorGUIBody()
     {

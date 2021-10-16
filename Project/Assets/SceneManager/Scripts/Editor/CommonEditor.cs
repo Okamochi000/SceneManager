@@ -1,11 +1,11 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
 /// <summary>
-/// ƒGƒfƒBƒ^[‚Ì‹¤’Êˆ—
+/// ã‚¨ãƒ‡ã‚£ã‚¿ãƒ¼ã®å…±é€šå‡¦ç†
 /// </summary>
 public abstract class CommonEditor : Editor
 {
@@ -13,74 +13,74 @@ public abstract class CommonEditor : Editor
 
     private Dictionary<string, SerializedProperty> propertyDictionary_ = new Dictionary<string, SerializedProperty>();
 
-    #region Unityƒƒ\ƒbƒh
+    #region Unityãƒ¡ã‚½ãƒƒãƒ‰
 
     /// <summary>
-    /// ‰Šúİ’è
+    /// åˆæœŸè¨­å®š
     /// </summary>
     public virtual void OnEnable()
     {
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         isChanged_ = false;
 
-        // •Û‚µ‚Ä‚¢‚éƒvƒƒpƒeƒB‚ğ‘S‚Äİ’è
+        // ä¿æŒã—ã¦ã„ã‚‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’å…¨ã¦è¨­å®š
         propertyDictionary_.Clear();
         SetProperty("m_Script");
         SetPropertyAll();
 
-        // Œp³æ‚Ì‰Šú‰»ˆ—
+        // ç¶™æ‰¿å…ˆã®åˆæœŸåŒ–å‡¦ç†
         OnInitialize();
     }
 
     /// <summary>
-    /// ƒCƒ“ƒXƒyƒNƒ^[XV
+    /// ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼æ›´æ–°
     /// </summary>
     public override void OnInspectorGUI()
     {
         if (IsDefaultInspector())
         {
-            // ‘S‚Ä‚ÌƒCƒ“ƒXƒyƒNƒ^[‚ğ•\¦
+            // å…¨ã¦ã®ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã‚’è¡¨ç¤º
             base.OnInspectorGUI();
         }
         else
         {
-            // ƒXƒNƒŠƒvƒgQÆ‚ğ•\¦‚·‚é
+            // ã‚¹ã‚¯ãƒªãƒ—ãƒˆå‚ç…§ã‚’è¡¨ç¤ºã™ã‚‹
             using (new EditorGUI.DisabledScope(true)) { ShowProperty("m_Script"); }
         }
 
-        // ƒAƒvƒŠÀs’†‚É”ñ•\¦‚É‚·‚é‚©
+        // ã‚¢ãƒ—ãƒªå®Ÿè¡Œä¸­ã«éè¡¨ç¤ºã«ã™ã‚‹ã‹
         if (IsPlayingDisabled()) { EditorGUI.BeginDisabledGroup(Application.isPlaying); }
 
-        // XVƒ`ƒFƒbƒNŠJn
+        // æ›´æ–°ãƒã‚§ãƒƒã‚¯é–‹å§‹
         BeginChangeCheck();
 
-        // ƒ{ƒbƒNƒXˆÍ‚İŠJn
+        // ãƒœãƒƒã‚¯ã‚¹å›²ã¿é–‹å§‹
         if (IsBoxCover()) { EditorGUILayout.BeginVertical(GUI.skin.box); }
 
-        // ƒ{ƒfƒB‚Éİ’è‚·‚é“à—e
+        // ãƒœãƒ‡ã‚£ã«è¨­å®šã™ã‚‹å†…å®¹
         OnInspectorGUIBody();
 
-        // ƒ{ƒbƒNƒXˆÍ‚İI—¹@
+        // ãƒœãƒƒã‚¯ã‚¹å›²ã¿çµ‚äº†ã€€
         if (IsBoxCover()) { EditorGUILayout.EndVertical(); }
 
-        // XVƒ`ƒFƒbƒNI—¹
+        // æ›´æ–°ãƒã‚§ãƒƒã‚¯çµ‚äº†
         EndChangeCheck();
 
-        // ƒAƒvƒŠÀs’†‚É”ñ•\¦‚É‚·‚é‚©
+        // ã‚¢ãƒ—ãƒªå®Ÿè¡Œä¸­ã«éè¡¨ç¤ºã«ã™ã‚‹ã‹
         if (IsPlayingDisabled()) { EditorGUI.BeginDisabledGroup(Application.isPlaying); }
     }
 
     #endregion
 
-    #region Œp³ƒƒ\ƒbƒh
+    #region ç¶™æ‰¿ãƒ¡ã‚½ãƒƒãƒ‰
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     protected virtual void OnInitialize() { }
 
     /// <summary>
-    /// ƒAƒvƒŠÀs’†‚Í‘€ì•s‰Â‚É‚·‚é‚©
+    /// ã‚¢ãƒ—ãƒªå®Ÿè¡Œä¸­ã¯æ“ä½œä¸å¯ã«ã™ã‚‹ã‹
     /// </summary>
     /// <returns></returns>
     protected virtual bool IsPlayingDisabled()
@@ -89,7 +89,7 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// ƒfƒtƒHƒ‹ƒg‚ÌInspector“à—e‚ğ•\¦‚·‚é‚©
+    /// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®Inspectorå†…å®¹ã‚’è¡¨ç¤ºã™ã‚‹ã‹
     /// </summary>
     /// <returns></returns>
     protected virtual bool IsDefaultInspector()
@@ -98,7 +98,7 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// Inspector‚ğƒ{ƒbƒNƒX‚ÅˆÍ‚Ş‚©
+    /// Inspectorã‚’ãƒœãƒƒã‚¯ã‚¹ã§å›²ã‚€ã‹
     /// </summary>
     /// <returns></returns>
     protected virtual bool IsBoxCover()
@@ -107,16 +107,16 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// Œp³æ‚ÌXVˆ—
+    /// ç¶™æ‰¿å…ˆã®æ›´æ–°å‡¦ç†
     /// </summary>
     protected abstract void OnInspectorGUIBody();
 
     #endregion
 
-    #region ƒCƒ“ƒXƒ^ƒ“ƒX
+    #region ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìæ“¾
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å–å¾—
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
@@ -127,10 +127,10 @@ public abstract class CommonEditor : Editor
 
     #endregion
 
-    #region ƒvƒƒpƒeƒB
+    #region ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 
     /// <summary>
-    /// ƒvƒƒpƒeƒB‚ğİ’è‚·‚é
+    /// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¨­å®šã™ã‚‹
     /// </summary>
     /// <param name="propertyName"></param>
     /// <returns></returns>
@@ -141,7 +141,7 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// ƒvƒƒpƒeƒB‚ğİ’è‚·‚é
+    /// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¨­å®šã™ã‚‹
     /// </summary>
     /// <param name="propertyName"></param>
     /// <returns></returns>
@@ -154,7 +154,7 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// ƒvƒƒpƒeƒB‚ğİ’è‚·‚é
+    /// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¨­å®šã™ã‚‹
     /// </summary>
     protected void SetPropertyAll()
     {
@@ -168,7 +168,7 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// ƒvƒƒpƒeƒB“àƒvƒƒpƒeƒB‚ğİ’è‚·‚é
+    /// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å†…ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¨­å®šã™ã‚‹
     /// </summary>
     /// <param name="targetProperty"></param>
     /// <param name="key"></param>
@@ -183,7 +183,7 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// ƒvƒƒpƒeƒB‚ğæ“¾‚·‚é
+    /// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’å–å¾—ã™ã‚‹
     /// </summary>
     /// <param name="propertyName"></param>
     /// <returns></returns>
@@ -194,7 +194,7 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// ƒvƒƒpƒeƒB‚ğ•\¦‚·‚é
+    /// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¡¨ç¤ºã™ã‚‹
     /// </summary>
     /// <param name="propertyName"></param>
     /// <returns></returns>
@@ -212,7 +212,7 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// ƒvƒƒpƒeƒB‚ğ•\¦‚·‚é
+    /// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¡¨ç¤ºã™ã‚‹
     /// </summary>
     /// <param name="propertyNames"></param>
     /// <returns></returns>
@@ -225,7 +225,7 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// ƒvƒƒpƒeƒB‚ğƒ‰ƒxƒ‹w’è‚Å•\¦‚·‚é
+    /// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ãƒ©ãƒ™ãƒ«æŒ‡å®šã§è¡¨ç¤ºã™ã‚‹
     /// </summary>
     /// <param name="propertyName"></param>
     /// <param name="label"></param>
@@ -236,7 +236,7 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// ƒvƒƒpƒeƒB‚ğƒ‰ƒxƒ‹w’è‚Å•\¦‚·‚é
+    /// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ãƒ©ãƒ™ãƒ«æŒ‡å®šã§è¡¨ç¤ºã™ã‚‹
     /// </summary>
     /// <param name="property"></param>
     /// <param name="label"></param>
@@ -256,7 +256,7 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// ‘S‚Ä‚ÌƒvƒƒpƒeƒB‚ğ•\¦‚·‚é
+    /// å…¨ã¦ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¡¨ç¤ºã™ã‚‹
     /// </summary>
     /// <param name="serializedObject"></param>
     /// <param name="key"></param>
@@ -272,7 +272,7 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// ƒIƒuƒWƒFƒNƒgƒŠƒXƒg‚ÌƒvƒƒpƒeƒBİ’è
+    /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒªã‚¹ãƒˆã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£è¨­å®š
     /// </summary>
     /// <param name="propertyName"></param>
     /// <param name="values"></param>
@@ -292,52 +292,52 @@ public abstract class CommonEditor : Editor
 
     #endregion
 
-    #region ”Ä—pƒŒƒCƒAƒEƒg
+    #region æ±ç”¨ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
 
     /// <summary>
-    /// ”Ä—pƒŒƒCƒAƒEƒg
+    /// æ±ç”¨ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
     /// </summary>
     /// <param name="title"></param>
     /// <param name="propertys"></param>
     protected void ShowGeneralBoxLayout(string title, string[] propertys)
     {
-        // c•À‚ÑŠJn
+        // ç¸¦ä¸¦ã³é–‹å§‹
         EditorGUILayout.BeginVertical(GUI.skin.box);
 
-        // ƒ^ƒCƒgƒ‹•\¦
+        // ã‚¿ã‚¤ãƒˆãƒ«è¡¨ç¤º
         EditorGUILayout.LabelField(title);
 
-        // —v‘f•\¦
+        // è¦ç´ è¡¨ç¤º
         ShowProperty(propertys);
 
-        // c•À‚ÑI—¹
+        // ç¸¦ä¸¦ã³çµ‚äº†
         EditorGUILayout.EndVertical();
     }
 
     /// <summary>
-    /// ”Ä—pŠJ•ÂƒŒƒCƒAƒEƒg
+    /// æ±ç”¨é–‹é–‰ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
     /// </summary>
     /// <param name="title"></param>
     /// <param name="propertys"></param>
     /// <param name="isOpen"></param>
     protected void ShowGeneralBoxLayout(string title, string[] propertys, ref bool isOpen)
     {
-        // c•À‚ÑŠJn
+        // ç¸¦ä¸¦ã³é–‹å§‹
         EditorGUILayout.BeginVertical(GUI.skin.box);
 
-        // Ü‚è‚½‚½‚İ•\¦
+        // æŠ˜ã‚ŠãŸãŸã¿è¡¨ç¤º
         ShowFoldout(ref isOpen, title, () => { ShowProperty(propertys); });
 
-        // c•À‚ÑI—¹
+        // ç¸¦ä¸¦ã³çµ‚äº†
         EditorGUILayout.EndVertical();
     }
 
     /// <summary>
-    /// boolŒ^‚Ìƒ`ƒFƒbƒN‚É‚æ‚éƒŒƒCƒAƒEƒg
+    /// boolå‹ã®ãƒã‚§ãƒƒã‚¯ã«ã‚ˆã‚‹ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
     /// </summary>
     protected void ShowCheckFoldoutLayout(string titlePropety, string[] bodyPropertys, bool isHide)
     {
-        // ƒ^ƒCƒgƒ‹•\¦
+        // ã‚¿ã‚¤ãƒˆãƒ«è¡¨ç¤º
         bool isOpen = false;
         SerializedProperty property = GetProperty(titlePropety);
         if (property != null)
@@ -346,46 +346,46 @@ public abstract class CommonEditor : Editor
             isOpen = property.boolValue;
         }
 
-        // ŠJ•Â’†A‚Ü‚½‚ÍŠJ‚¢‚Ä‚¢‚é‚Æ‚«‚à—v‘f‚ğ•\¦‚·‚éê‡
+        // é–‹é–‰ä¸­ã€ã¾ãŸã¯é–‹ã„ã¦ã„ã‚‹ã¨ãã‚‚è¦ç´ ã‚’è¡¨ç¤ºã™ã‚‹å ´åˆ
         if (isOpen || !isHide)
         {
-            // ƒCƒ“ƒfƒ“ƒg
+            // ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆ
             EditorGUI.indentLevel++;
 
-            // ‘€ì•s‰Âİ’è
+            // æ“ä½œä¸å¯è¨­å®š
             bool isDisabled = false;
             if (!isOpen && isHide) { isDisabled = true; }
             EditorGUI.BeginDisabledGroup(isDisabled);
 
-            // —v‘f•\¦
+            // è¦ç´ è¡¨ç¤º
             ShowProperty(bodyPropertys);
 
-            // ‘€ì•s‰Âİ’è‰ğœ
+            // æ“ä½œä¸å¯è¨­å®šè§£é™¤
             EditorGUI.BeginDisabledGroup(isDisabled);
 
-            // ƒCƒ“ƒfƒ“ƒg‰ğœ
+            // ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆè§£é™¤
             EditorGUI.indentLevel--;
         }
     }
 
     /// <summary>
-    /// ƒŠƒXƒg‚Ì—v‘f‚ğEnum‚ÌŒÂ”•ª•\¦‚·‚é
+    /// ãƒªã‚¹ãƒˆã®è¦ç´ ã‚’Enumã®å€‹æ•°åˆ†è¡¨ç¤ºã™ã‚‹
     /// </summary>
     /// <param name="type"></param>
     /// <param name="propertyName"></param>
     /// <param name="isOpen"></param>
     protected void ShowEnumListLayout(Type type, string propertyName, ref bool isOpen)
     {
-        // ƒ^ƒCƒgƒ‹•\¦
+        // ã‚¿ã‚¤ãƒˆãƒ«è¡¨ç¤º
         SerializedProperty property = GetProperty(propertyName);
 
-        // Enum‚Ì”‚É‡‚í‚¹‚é
+        // Enumã®æ•°ã«åˆã‚ã›ã‚‹
         string[] enumNames = Enum.GetNames(type);
         property.arraySize = enumNames.Length;
 
-        // Ü‚è‚½‚½‚İ•\¦
+        // æŠ˜ã‚ŠãŸãŸã¿è¡¨ç¤º
         ShowFoldout(ref isOpen, property.displayName, () => {
-            // ƒ^ƒCƒgƒ‹•\¦
+            // ã‚¿ã‚¤ãƒˆãƒ«è¡¨ç¤º
             bool indent = true;
             if (property.GetArrayElementAtIndex(0).propertyType == SerializedPropertyType.ObjectReference) { indent = false; }
             if (indent) { EditorGUI.indentLevel--; }
@@ -400,60 +400,60 @@ public abstract class CommonEditor : Editor
     }
 
     /// <summary>
-    /// Ü‚è‚½‚½‚İ•\¦
+    /// æŠ˜ã‚ŠãŸãŸã¿è¡¨ç¤º
     /// </summary>
     /// <param name="title"></param>
     /// <param name="isOpen"></param>
     /// <param name="openAction"></param>
     protected void ShowFoldout(ref bool isOpen, string title, Action openAction)
     {
-        // ƒCƒ“ƒfƒ“ƒgŠJn
+        // ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆé–‹å§‹
         EditorGUI.indentLevel++;
 
-        // Ü‚è‚½‚½‚İ•\¦(Ü‚è‚½‚½‚İ‚ÌØ‚è‘Ö‚¦‚Å‘€ìXV‚ğ‚µ‚È‚¢)
+        // æŠ˜ã‚ŠãŸãŸã¿è¡¨ç¤º(æŠ˜ã‚ŠãŸãŸã¿ã®åˆ‡ã‚Šæ›¿ãˆã§æ“ä½œæ›´æ–°ã‚’ã—ãªã„)
         isChanged_ |= EditorGUI.EndChangeCheck();
         isOpen = EditorGUILayout.Foldout(isOpen, title);
         EditorGUI.BeginChangeCheck();
 
-        // ŠJ‚©‚ê‚Ä‚¢‚é‚Æ‚«‚Ìˆ—
+        // é–‹ã‹ã‚Œã¦ã„ã‚‹ã¨ãã®å‡¦ç†
         if (isOpen && openAction != null) { openAction(); }
 
-        // ƒCƒ“ƒfƒ“ƒgI—¹
+        // ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆçµ‚äº†
         EditorGUI.indentLevel--;
     }
 
     #endregion
 
-    #region XVƒ`ƒFƒbƒN
+    #region æ›´æ–°ãƒã‚§ãƒƒã‚¯
 
     /// <summary>
-    /// XVƒ`ƒFƒbƒNŠJn
+    /// æ›´æ–°ãƒã‚§ãƒƒã‚¯é–‹å§‹
     /// </summary>
     private void BeginChangeCheck()
     {
-        // XVƒ`ƒFƒbƒNŠJn
+        // æ›´æ–°ãƒã‚§ãƒƒã‚¯é–‹å§‹
         EditorGUI.BeginChangeCheck();
 
-        // ƒVƒŠƒAƒ‰ƒCƒYƒIƒuƒWƒFƒNƒgXV
+        // ã‚·ãƒªã‚¢ãƒ©ã‚¤ã‚ºã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ›´æ–°
         serializedObject.Update();
     }
 
     /// <summary>
-    /// XVƒ`ƒFƒbƒNI—¹
+    /// æ›´æ–°ãƒã‚§ãƒƒã‚¯çµ‚äº†
     /// </summary>
     private void EndChangeCheck()
     {
-        // ƒVƒŠƒAƒ‰ƒCƒYƒIƒuƒWƒFƒNƒgXV
+        // ã‚·ãƒªã‚¢ãƒ©ã‚¤ã‚ºã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ›´æ–°
         serializedObject.ApplyModifiedProperties();
 
-        // ƒAƒvƒŠ‹N“®’†‚ÍÀs‚µ‚È‚¢
+        // ã‚¢ãƒ—ãƒªèµ·å‹•ä¸­ã¯å®Ÿè¡Œã—ãªã„
         if (Application.isPlaying) { return; }
 
-        // ƒGƒfƒBƒ^[XV‚ª‚È‚¢ê‡‚ÍÀs‚µ‚È‚¢
+        // ã‚¨ãƒ‡ã‚£ã‚¿ãƒ¼æ›´æ–°ãŒãªã„å ´åˆã¯å®Ÿè¡Œã—ãªã„
         isChanged_ |= EditorGUI.EndChangeCheck();
         if (!isChanged_) { return; }
 
-        // XV”½‰f
+        // æ›´æ–°åæ˜ 
         isChanged_ = false;
         MonoBehaviour instance = Instance<MonoBehaviour>();
         string path = instance.gameObject.scene.path;
